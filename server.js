@@ -7,12 +7,12 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: '*',
+  origin: '*',  // Allow all origins for testing
   credentials: true
 }));
 app.use(express.json());
 
-// Routes - IMPORTANT: These must be BEFORE the MongoDB connection
+// IMPORTANT: Routes must be mounted with /api prefix
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/tasks', require('./routes/tasks'));
 
