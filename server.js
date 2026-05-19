@@ -6,12 +6,20 @@ require('dotenv').config();
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: '*',
+  credentials: true
+}));
 app.use(express.json());
 
-// Routes
+// Routes - IMPORTANT: These must be BEFORE the MongoDB connection
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/tasks', require('./routes/tasks'));
+
+// Test route to check if server is running
+app.get('/', (req, res) => {
+  res.json({ message: 'MERN Task Manager API is running' });
+});
 
 // MongoDB connection
 mongoose.connect(process.env.MONGODB_URI)
